@@ -68,6 +68,10 @@ public class ListApiServiceTest {
         // Add Meeting
         service.addMeeting(newMeeting);
         Assert.assertTrue(service.getListMeetings().contains(newMeeting));
+
+        // remove Meeting
+        service.removeMeeting(newMeeting);
+        Assert.assertFalse(service.getListMeetings().contains(newMeeting));
     }
 
     /**
