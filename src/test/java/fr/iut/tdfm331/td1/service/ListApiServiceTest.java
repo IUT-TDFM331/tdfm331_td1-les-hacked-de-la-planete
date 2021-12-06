@@ -68,20 +68,75 @@ public class ListApiServiceTest {
         // Add Meeting
         service.addMeeting(newMeeting);
         Assert.assertTrue(service.getListMeetings().contains(newMeeting));
+    }
+
+    /**
+     * Test to check if a new Meeting object is correctly added to the list
+     */
+    @Test
+    public void removeNewMeetingWithSuccess() {
+
+        // Create list Employee
+        List<Employee> listEmployees = Arrays.asList(new Employee("Baptiste", "baptiste@lamzone.com", 4),
+                new Employee("Fanny", "fanny@lamzone.com", 10),
+                new Employee("Vincent", "vincent@lamzone.com", 22));
+
+        // Create list Meeting
+        Meeting newMeeting = new Meeting("Réunion d'avancement",
+                "Planck",
+                "12/11/20",
+                "15:30",
+                "16:00",
+                "Revues des dernières actions",
+                listEmployees);
 
         // remove Meeting
         service.removeMeeting(newMeeting);
         Assert.assertFalse(service.getListMeetings().contains(newMeeting));
     }
 
+
+
     /**
      * Test to check if a selected Meeting is correctly removed from list
      */
     @Test
-    public void removeMeetingWithSuccess() {
+    public void removeMeetingWithSuccess()  {
         // Get first Meeting from list
         Meeting meetingToRemove = service.getListMeetings().get(0);
         service.getListMeetings().remove(meetingToRemove);
         Assert.assertFalse(service.getListMeetings().contains(meetingToRemove));
+
+
+
     }
+
+    @Test
+    public void findByObejct(){
+        // Create list Employee
+        List<Employee> listEmployees = Arrays.asList(new Employee("Baptiste", "baptiste@lamzone.com", 4),
+                new Employee("Fanny", "fanny@lamzone.com", 10),
+                new Employee("Vincent", "vincent@lamzone.com", 22));
+
+        // create meeting
+        Meeting MeetinTest2=  new Meeting("Réunion d'avancement",
+                "Planck",
+                "12/11/20",
+                "15:30",
+                "16:00",
+                "Revues des dernières actions",
+                listEmployees);
+
+        Meeting meetintTest = null;
+        try {
+            meetintTest = service.findByObject(MeetinTest2.getObjectMeeting());
+            Assert.assertFalse(MeetinTest2.getObjectMeeting().equals(meetintTest.getObjectMeeting()));
+
+        } catch (MeetingNotFound meetingNotFound) {
+            meetingNotFound.printStackTrace();
+        }
+
+    }
+
 }
+
