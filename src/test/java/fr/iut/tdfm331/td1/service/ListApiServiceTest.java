@@ -130,11 +130,30 @@ public class ListApiServiceTest {
         Meeting meetintTest = null;
         try {
             meetintTest = service.findByObject(MeetinTest2.getObjectMeeting());
-            Assert.assertFalse(MeetinTest2.getObjectMeeting().equals(meetintTest.getObjectMeeting()));
+            Assert.assertTrue(MeetinTest2.getObjectMeeting().equals(meetintTest.getObjectMeeting()));
 
         } catch (MeetingNotFound meetingNotFound) {
             meetingNotFound.printStackTrace();
         }
+
+    }
+
+    @Test
+    public void findByName(){
+        // Create list Employee
+        List<Employee> listEmployees = Arrays.asList(new Employee("Baptiste", "baptiste@lamzone.com", 4),
+                new Employee("Fanny", "fanny@lamzone.com", 10),
+                new Employee("Vincent", "vincent@lamzone.com", 22));
+
+        Employee EmployeeTest = null;
+        try {
+            EmployeeTest = service.findByName(listEmployees.get(0).getName());
+            Assert.assertTrue(listEmployees.get(0).getName().equals(EmployeeTest.getName()));
+        } catch (EmployeeNotFound employeeNotFound) {
+            employeeNotFound.printStackTrace();
+        }
+
+
 
     }
 
