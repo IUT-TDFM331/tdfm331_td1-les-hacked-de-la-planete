@@ -160,7 +160,7 @@ public class ListApiServiceTest {
             Assert.assertFalse(MeetingTest2.getObjectMeeting().equals(meetingTest.getObjectMeeting()));
 
         } catch (MeetingNotFound meetingNotFound) {
-            meetingNotFound.printStackTrace();
+            System.out.println(meetingNotFound.getMessage());
         }
 
     }
@@ -177,7 +177,7 @@ public class ListApiServiceTest {
             EmployeeTest = service.findByName(listEmployees.get(0).getName());
             Assert.assertTrue(listEmployees.get(0).getName().equals(EmployeeTest.getName()));
         } catch (EmployeeNotFound employeeNotFound) {
-            employeeNotFound.printStackTrace();
+           System.out.println(employeeNotFound.getMessage());
         }
 
 
@@ -196,7 +196,7 @@ public class ListApiServiceTest {
             EmployeeTest = service.findByName("");
             Assert.assertFalse(listEmployees.get(0).getName().equals(EmployeeTest.getName()));
         } catch (EmployeeNotFound employeeNotFound) {
-            employeeNotFound.printStackTrace();
+            System.out.println(employeeNotFound.getMessage());
         }
 
 
