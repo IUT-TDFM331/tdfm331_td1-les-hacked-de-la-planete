@@ -71,13 +71,137 @@ public class ListApiServiceTest {
     }
 
     /**
+     * Test to check if a new Meeting object is correctly added to the list
+     */
+    @Test
+    public void removeNewMeetingWithSuccess() {
+
+        // Create list Employee
+        List<Employee> listEmployees = Arrays.asList(new Employee("Baptiste", "baptiste@lamzone.com", 4),
+                new Employee("Fanny", "fanny@lamzone.com", 10),
+                new Employee("Vincent", "vincent@lamzone.com", 22));
+
+        // Create list Meeting
+        Meeting newMeeting = new Meeting("Réunion d'avancement",
+                "Planck",
+                "12/11/20",
+                "15:30",
+                "16:00",
+                "Revues des dernières actions",
+                listEmployees);
+
+        // remove Meeting
+        service.removeMeeting(newMeeting);
+        Assert.assertFalse(service.getListMeetings().contains(newMeeting));
+    }
+
+
+
+    /**
      * Test to check if a selected Meeting is correctly removed from list
      */
     @Test
-    public void removeMeetingWithSuccess() {
+    public void removeMeetingWithSuccess()  {
         // Get first Meeting from list
         Meeting meetingToRemove = service.getListMeetings().get(0);
         service.getListMeetings().remove(meetingToRemove);
         Assert.assertFalse(service.getListMeetings().contains(meetingToRemove));
+
+
+
     }
+
+    @Test
+    public void findByObject(){
+        // Create list Employee
+        List<Employee> listEmployees = Arrays.asList(new Employee("Baptiste", "baptiste@lamzone.com", 4),
+                new Employee("Fanny", "fanny@lamzone.com", 10),
+                new Employee("Vincent", "vincent@lamzone.com", 22));
+
+        // create meeting
+        Meeting MeetingTest2=  new Meeting("Réunion d'avancement",
+                "Planck",
+                "12/11/20",
+                "15:30",
+                "16:00",
+                "Revues des dernières actions",
+                listEmployees);
+
+        Meeting meetingTest = null;
+        try {
+            meetingTest = service.findByObject(MeetingTest2.getObjectMeeting());
+            Assert.assertTrue(MeetingTest2.getObjectMeeting().equals(meetingTest.getObjectMeeting()));
+
+        } catch (MeetingNotFound meetingNotFound) {
+            meetingNotFound.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void noFindByObject(){
+        // Create list Employee
+        List<Employee> listEmployees = Arrays.asList(new Employee("Baptiste", "baptiste@lamzone.com", 4),
+                new Employee("Fanny", "fanny@lamzone.com", 10),
+                new Employee("Vincent", "vincent@lamzone.com", 22));
+
+        // create meeting
+        Meeting MeetingTest2=  new Meeting("Réunion d'avancement",
+                "Planck",
+                "12/11/20",
+                "15:30",
+                "16:00",
+                "Revues des dernières actions",
+                listEmployees);
+
+        Meeting meetingTest = null;
+        try {
+            meetingTest = service.findByObject("");
+            Assert.assertFalse(MeetingTest2.getObjectMeeting().equals(meetingTest.getObjectMeeting()));
+
+        } catch (MeetingNotFound meetingNotFound) {
+            System.out.println(meetingNotFound.getMessage());
+        }
+
+    }
+
+    @Test
+    public void findByName(){
+        // Create list Employee
+        List<Employee> listEmployees = Arrays.asList(new Employee("Baptiste", "baptiste@lamzone.com", 4),
+                new Employee("Fanny", "fanny@lamzone.com", 10),
+                new Employee("Vincent", "vincent@lamzone.com", 22));
+
+        Employee EmployeeTest = null;
+        try {
+            EmployeeTest = service.findByName(listEmployees.get(0).getName());
+            Assert.assertTrue(listEmployees.get(0).getName().equals(EmployeeTest.getName()));
+        } catch (EmployeeNotFound employeeNotFound) {
+           System.out.println(employeeNotFound.getMessage());
+        }
+
+
+
+    }
+
+    @Test
+    public void noFindByName(){
+        // Create list Employee
+        List<Employee> listEmployees = Arrays.asList(new Employee("Baptiste", "baptiste@lamzone.com", 4),
+                new Employee("Fanny", "fanny@lamzone.com", 10),
+                new Employee("Vincent", "vincent@lamzone.com", 22));
+
+        Employee EmployeeTest = null;
+        try {
+            EmployeeTest = service.findByName("");
+            Assert.assertFalse(listEmployees.get(0).getName().equals(EmployeeTest.getName()));
+        } catch (EmployeeNotFound employeeNotFound) {
+            System.out.println(employeeNotFound.getMessage());
+        }
+
+
+
+    }
+
 }
+
